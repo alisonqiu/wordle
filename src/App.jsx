@@ -1,4 +1,6 @@
 import React, { useState, createContext, useEffect } from "react";
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import "./App.css";
 import Header from "./components/Header"
 import GameOver from "./components/Gameover"
@@ -96,7 +98,11 @@ function App() {
     
   }
   return (
-    <>
+    <Paper
+    sx={{textAlign: 'center',
+    backgroundColor: '#8c9c9c',
+    width: '100%',}}
+>
     {/*everything inside <AppContext.Provider> have access to states we pass in  */}
     <AppContext.Provider value={{
           correctWord,
@@ -113,13 +119,11 @@ function App() {
           gameOver
     }}> 
     <Header/>
-    {
-      gameOver.gameOver? <GameOver/> : <Board/> }{
-      gameOver.gameOver? "": <Keyboard/> 
 
-    }
+    {gameOver.gameOver? <GameOver/> : <Board/> }
+    {gameOver.gameOver? "": <Keyboard/>}
 </AppContext.Provider>
-    </>
+</Paper>
   );
 }
 

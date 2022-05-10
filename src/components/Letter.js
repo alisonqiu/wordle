@@ -1,22 +1,12 @@
 import React,{useContext, useEffect} from "react"
 //import { AppContext } from "../App";
-import { styled } from '@mui/material/styles';
+import { styled,createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { AppContext } from "../App";
 
 export default function Letter({row,col}) {
     const {board, correctWord, currAttempt,guessedLetters, setGuessedLetters} = useContext(AppContext)
-
-    {/*mui styling*/}
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? 'white' : 'red',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      }));
-
 
     const letter = board[row][col]
 
@@ -26,8 +16,28 @@ export default function Letter({row,col}) {
     const yellow = !green && letter !=="" && correctWord.toUpperCase().includes(letter)
     //only check after enter
     //console.log(currAttempt.row +" "+ row)
-    const letterState = currAttempt.row > row && green? 'green':currAttempt.row > row && yellow? 'yellow':'grey'
-
+    const letterState = currAttempt.row > row && green? '#528d4e':currAttempt.row > row && yellow? '#b49f39':'3a393c'
+    //const letterState = currAttempt.row > row && green? green:currAttempt.row > row && yellow? yellow:grey
+        {/*mui styling*/}
+        const Item = styled(Paper)(({ theme }) => ({
+            backgroundColor: letterState,
+            padding: theme.spacing(3),
+            margin:theme.spacing(1),
+            //width: '2.5em',
+            height: '0.3em',
+            //textAlign: 'center',
+            //alignItems: 'center',
+            //borderWidth: "1px",
+            //borderColor: "yellow !important",
+            color: theme.palette.text.primary,
+            border: '1px solid grey',
+            //display: 'flex',
+            placeItems: 'center',
+            fontSize: '30px',
+            fontWeight: 'bolder',
+          }));
+    
+    
     //add the incorrect letters to guessedLetters each time we move to a new row
     useEffect(()=>{
         if (letter !== "" && !green && !yellow){
@@ -37,6 +47,6 @@ export default function Letter({row,col}) {
     },[currAttempt.row])
 
     return (
-        <Item id={letterState}>{letter}</Item>
+        <Item  placeItems= 'center'>{letter}</Item>
     )
 }

@@ -1,24 +1,25 @@
 import React, { useState } from "react"
 import Grid from '@mui/material/Grid';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { defaultBoard } from "../Words";
 import Letter from "./Letter"
 
 function FormRow({row}) {
     return (
-      <React.Fragment>
-            <Grid item xs={12/5}>
+      <React.Fragment >
+            <Grid item >
                 <Letter row = {row} col={0} />
             </Grid>
-            <Grid item xs={12/5}>
+            <Grid item >
                 <Letter row = {row} col={1} />
             </Grid>
-            <Grid item xs={12/5}>
+            <Grid item >
                 <Letter row = {row} col={2} />
             </Grid>
-            <Grid item xs={12/5}>
+            <Grid item >
                 <Letter row = {row} col={3} />
             </Grid>
-            <Grid item xs={12/5}>
+            <Grid item >
                 <Letter row = {row} col={4} />
             </Grid>
         </React.Fragment>
@@ -26,9 +27,34 @@ function FormRow({row}) {
   }
 
 export default function Board(props) {
+  const theme = createTheme({
+    components: {
+      // Name of the component
+      MuiGrid: {
+        styleOverrides: {
+          // Name of the slot
+          root: {
+            // Some CSS
+            width: 'auto',
+          },
+        },
+      },
+    },
+  });
 
     return (
-        <Grid container justifyContent="center" className="board" >
+      //<ThemeProvider theme={theme}>
+        <Grid container justifyContent="center" className="board" 
+        sx={{
+          flex: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+          placeItems:"center" , 
+          textAlign:"center" , 
+          width: '100%',
+          border: '1px solid grey',
+        }}
+        >
 
         <Grid container item spacing='auto'>
           <FormRow row = {0}/>
@@ -51,5 +77,6 @@ export default function Board(props) {
  
 
         </Grid>
+       // </ThemeProvider>
     )
 }

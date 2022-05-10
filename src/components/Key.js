@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { AppContext } from "../App";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function Key({keyVal, eORd, guessed}) {
     const{onSelectLetter, onDeleteLetter, onEnterLetter} = useContext(AppContext)
@@ -14,19 +15,28 @@ export default function Key({keyVal, eORd, guessed}) {
             onSelectLetter(keyVal)
     }
     }
-    
+    const theme = createTheme({
+        palette: {
+          primary: {
+            main: '#9c9c9c',
+            contrastText: '#fff',
+          },
+          secondary: {
+            main: '#ffffff',
+            contrastText: '#0000000',
+          },
+        },
+      });
     return (
+        <ThemeProvider theme={theme}>
         <Button
-        id = {guessed? 'guessed':'notGuessed'}
-
+        variant="contained"
+        color = {guessed?'primary': 'secondary'}
         sx={{
-            //use create theme to change width
-            width: '50px',
-            height: '70px',
             margin: '5px',
             borderRadius: '4px',
             placeItems: 'center',
-            fontSize: '20px',
+            fontSize: '15px',
             backgroundColor: 'grey',
             fontFamily: 'Arial',
             cursor: 'pointer',
@@ -34,6 +44,7 @@ export default function Key({keyVal, eORd, guessed}) {
 
           onClick={selectLetter}
         >{keyVal}</Button>
+        </ThemeProvider>
             
     )
 }
