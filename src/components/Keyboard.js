@@ -1,7 +1,9 @@
 import React, { useCallback, useContext,useEffect } from "react"
 import { AppContext } from "../App";
-import Button, { ButtonProps } from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 import Key from "./Key";
+import pinkBg from "../../src/images/pinkbg.jpg"
+import { height } from "@mui/system";
 
 const line1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
 const line2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
@@ -47,26 +49,35 @@ export default function Keyboard() {
         }
     },[handleKeyboard])
 
+    const sectionStyle = {
+        backgroundImage:
+          `url(${pinkBg})` ,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        height:'100vh'
+      };
+
+      
     return (
-        <div className="key-container" onKeyDown={handleKeyboard}>
-            <div className="line1">
+        <Grid  className="key-container" onKeyDown={handleKeyboard}>
+            <Grid className="line1">
                 {line1.map((key) => {
                     return <Key keyVal={key} guessed={guessedLetters.includes(key)}/>;
                 })}
-            </div>
-            <div className="line2">
+            </Grid>
+            <Grid className="line2">
                 {line2.map((key) => {
                     return <Key keyVal={key} guessed={guessedLetters.includes(key)}/>;
                 })}
-            </div>
+            </Grid>
       
-            <div className="line3">
+            <Grid className="line3">
                 <Key keyVal={"ENTER"} />
                 {line3.map((key) => {
                 return <Key keyVal={key} guessed={guessedLetters.includes(key)}/>;
                 })}
                 <Key keyVal={"DELETE"} />
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     )
 }

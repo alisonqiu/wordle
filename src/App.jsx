@@ -1,6 +1,8 @@
 import React, { useState, createContext, useEffect } from "react";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import {useTheme, createTheme, ThemeProvider } from '@mui/material/styles';
 import "./App.css";
 import Header from "./components/Header"
 import GameOver from "./components/Gameover"
@@ -8,6 +10,9 @@ import Keyboard from "./components/Keyboard"
 import Board from "./components/Board"
 import { defaultBoard } from "./Words"
 import { generateWordSet } from "./Words";
+import pinkBg from "./images/pinkbg.jpg"
+import bluebg from "./images/bluebg.jpg"
+
 
 export const AppContext = createContext()
 
@@ -25,6 +30,8 @@ function App() {
     gameOver: false,
     guessedWord: false,
   });
+  //set dark mode
+  const [darkMode,setDarkMode] = useState(false)
 
   //genrate correct word
   useEffect(()=>{
@@ -97,11 +104,38 @@ function App() {
     setCurrAttempt({...currAttempt, col: currAttempt.col+1})
     
   }
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
+
+  const lightTheme = createTheme({
+    palette: {
+      mode: 'light',
+      background: {
+        default: "#303030"
+      }
+    },
+  });
+
+  const sectionStyle = {
+    backgroundImage:darkMode?`url(${pinkBg})`:`url(${bluebg})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    height:'100vh'
+  };
+
+  
   return (
+    <ThemeProvider theme = {darkMode? darkTheme: lightTheme}>
     <Paper
     sx={{textAlign: 'center',
-    backgroundColor: '#8c9c9c',
-    width: '100%',}}
+    width: '100vw',
+    height:'100vh'}}
+
+    style ={sectionStyle}
 >
     {/*everything inside <AppContext.Provider> have access to states we pass in  */}
     <AppContext.Provider value={{
@@ -116,14 +150,16 @@ function App() {
           setBoard,
           guessedLetters, 
           setGuessedLetters,
-          gameOver
+          gameOver,
+          darkMode,
+          setDarkMode,
     }}> 
     <Header/>
-
     {gameOver.gameOver? <GameOver/> : <Board/> }
     {gameOver.gameOver? "": <Keyboard/>}
 </AppContext.Provider>
 </Paper>
+</ThemeProvider>
   );
 }
 

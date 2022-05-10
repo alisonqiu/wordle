@@ -21,18 +21,18 @@ export default function Letter({row,col}) {
         {/*mui styling*/}
         const Item = styled(Paper)(({ theme }) => ({
             backgroundColor: letterState,
-            padding: theme.spacing(3),
+            padding: theme.spacing(1.7),
             margin:theme.spacing(0.5),
             width: '1em',
             height: '1em',
             textAlign: 'center',
             alignItems: 'center',
-            color: theme.palette.text.primary,
             border: '1px solid grey',
             //display: 'flex',
             placeItems: 'center',
-            //fontSize: '30px',
+            fontSize: '30px',
             fontWeight: 'bolder',
+            fontFamily: 'Helvetica Neue'
           }));
     
     

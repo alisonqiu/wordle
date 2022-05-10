@@ -5,7 +5,7 @@ import { AppContext } from "../App";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function Key({keyVal, eORd, guessed}) {
-    const{onSelectLetter, onDeleteLetter, onEnterLetter} = useContext(AppContext)
+    const{onSelectLetter, onDeleteLetter, onEnterLetter, darkMode} = useContext(AppContext)
     const selectLetter = () => {
         if (keyVal === 'ENTER'){
             onEnterLetter()
@@ -25,20 +25,22 @@ export default function Key({keyVal, eORd, guessed}) {
             main: '#ffffff',
             contrastText: '#0000000',
           },
+          darkSecondary: {
+            main: '#000000',
+            contrastText: '#fff',
+          },
         },
       });
     return (
         <ThemeProvider theme={theme}>
         <Button
         variant="contained"
-        color = {guessed?'primary': 'secondary'}
+        color = {guessed?'primary': (darkMode?'darkSecondary':'secondary')}
         sx={{
             margin: '5px',
-            borderRadius: '4px',
+            //borderRadius: '4px',
             placeItems: 'center',
             fontSize: '15px',
-            backgroundColor: 'grey',
-            fontFamily: 'Arial',
             cursor: 'pointer',
           }} 
 
