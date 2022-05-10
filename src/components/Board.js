@@ -27,7 +27,7 @@ function FormRow({row}) {
   }
 
 export default function Board(props) {
-  const theme = createTheme({
+    const theme = createTheme({
     components: {
       // Name of the component
       MuiGrid: {
@@ -44,39 +44,37 @@ export default function Board(props) {
 
     return (
       //<ThemeProvider theme={theme}>
-        <Grid container justifyContent="center" className="board" 
+        <Grid container 
+        display='grid'
+        justifyContent="center"
+        alignItems="center" 
+        className="board" 
         sx={{
-          flex: '100%',
-          display: 'flex',
-          flexDirection: 'row',
-          placeItems:"center" , 
-          textAlign:"center" , 
-          width: '100%',
           border: '1px solid grey',
         }}
         >
 
-        <Grid container item spacing='auto'>
+        <Grid container spacing='auto' md={12}>
           <FormRow row = {0}/>
         </Grid>
-        <Grid container item spacing='auto'>
+        <Grid container spacing='auto' md={12}>
           <FormRow row = {1}/>
         </Grid>
-        <Grid container item spacing='auto'>
+        <Grid container spacing='auto' md={12}>
           <FormRow row = {2}/>
         </Grid>
-        <Grid container item spacing='auto'>
+        <Grid container spacing='auto' md={12}>
           <FormRow row = {3}/>
         </Grid>
-        <Grid container item spacing='auto'>
+        <Grid container spacing='auto' md={12}>
           <FormRow row = {4}/>
         </Grid>
-        <Grid container item spacing='auto'>
+        <Grid container spacing='auto' md={12}>
           <FormRow row = {5}/>
-        </Grid>
- 
+      </Grid> 
+    
 
         </Grid>
-       // </ThemeProvider>
+       //</ThemeProvider>
     )
 }
