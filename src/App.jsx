@@ -11,7 +11,7 @@ import Board from "./components/Board"
 import { defaultBoard } from "./Words"
 import { generateWordSet } from "./Words";
 import pinkBg from "./images/pinkbg.jpg"
-import bluebg from "./images/bluebg.jpg"
+import wood from "./images/wood.jpg"
 
 
 export const AppContext = createContext()
@@ -121,7 +121,7 @@ function App() {
   });
 
   const sectionStyle = {
-    backgroundImage:darkMode?`url(${pinkBg})`:`url(${bluebg})`,
+    backgroundImage:darkMode?`url(${pinkBg})`:`url(${wood})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     height:'100vh'
