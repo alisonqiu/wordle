@@ -69,16 +69,29 @@ function App() {
       }) 
     }
     //check if currWord is in wordbank
-    if (wordSet.has(currWord.toLowerCase())) {
-        //if so, go to the next line
+    fetch(`http://localhost:8000/check/?word=${currWord.toLowerCase()}`)
+    .then(response => response.json())
+    .then(json => {
+        if (json === 'Entry word not found') {
+            console.log((currWord+' is not a valid word'))
+            alert(currWord+' is not a valid word')
+            return
+        } else {
+          //if so, go to the next line
         setCurrAttempt({row: currAttempt.row+1, col:0})
-    }else{
-      //if currWord is not in wordbank
-      console.log((currWord+' is not a valid word'))
-      alert(currWord+' is not a valid word')
-    }
+        }}).catch((error) => {
+          console.error(error)
+      })
+    // if (wordSet.has(currWord.toLowerCase())) {
+    //     //if so, go to the next line
+    //     setCurrAttempt({row: currAttempt.row+1, col:0})
+    // }else{
+    //   //if currWord is not in wordbank
+    //   console.log((currWord+' is not a valid word'))
+    //   alert(currWord+' is not a valid word')
+    // }
 
-  }
+  
 
   const onDeleteLetter = () =>{
     //warning message if try to delete the 0th letter
@@ -162,5 +175,5 @@ function App() {
 </ThemeProvider>
   );
 }
-
+}
 export default App;

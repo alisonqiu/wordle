@@ -13,7 +13,7 @@ export const defaultBoard = [
 export const generateWordSet = async () => {
     let wordSet;
     let todaysWord;
-    await fetch(wordBank)
+    await fetch('http://localhost:8000/word')
       .then((response) => response.text())
       .then((result) => {
         //turn into an array of words
