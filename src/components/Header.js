@@ -1,11 +1,11 @@
 import React,{useContext} from "react"
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { AppContext } from "../App";
 import {styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import { Typography } from "@material-ui/core";
 import { fontWeight } from "@mui/system";
 import pinkBg from "../../src/images/pinkbgreverse.jpg"
 
@@ -64,8 +64,22 @@ export default function Header() {
           borderRadius: 20 / 2,
         },
       }));
+    const theme = createTheme({
+        components: {
+          MuiTypography: {
+            defaultProps: {
+              fontFamily:[
+                'Chilanka',
+                'cursive',
+              ].join(','),
+            },
+          },
+        },
+      });
       
+
     return (
+    <ThemeProvider theme={theme}>
     <Box    
     sx={{
         display: 'flex',
@@ -91,10 +105,12 @@ export default function Header() {
             height:'27px'
           }}
         className="title-container">
-        <h1>Wordle</h1>
+        <Typography variant="h3" >Wordle</Typography>
         </Box> 
+
         <FormControlLabel control={<DarkModeSwitch checked={darkMode} onChange={()=>setDarkMode(!darkMode)}/>}></FormControlLabel>
         </Box>
+        </ThemeProvider>
 
     )
 }

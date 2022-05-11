@@ -1,5 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef } from "react";
 import ReactCanvasConfetti from "react-canvas-confetti";
+import Button from '@mui/material/Button';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 
 const canvasStyles = {
   position: "fixed",
@@ -10,65 +12,66 @@ const canvasStyles = {
   left: 0
 };
 
-function getAnimationSettings(angle, originX) {
-  return {
-    particleCount: 3,
-    angle,
-    spread: 55,
-    origin: { x: originX },
-    colors: ["#bb0000", "#ffffff"]
-  };
-}
-
-export default function SchoolPride({won}) {
+export default function Realistic({won}) {
   const refAnimationInstance = useRef(null);
-  const [intervalId, setIntervalId] = useState();
 
   const getInstance = useCallback((instance) => {
     refAnimationInstance.current = instance;
   }, []);
 
-  const nextTickAnimation = useCallback(() => {
-    if (refAnimationInstance.current) {
-      refAnimationInstance.current(getAnimationSettings(60, 0));
-      refAnimationInstance.current(getAnimationSettings(120, 1));
-    }
+  const makeShot = useCallback((particleRatio, opts) => {
+    refAnimationInstance.current &&
+      refAnimationInstance.current({
+        ...opts,
+        origin: { y: 0.7 },
+        particleCount: Math.floor(200 * particleRatio)
+      });
   }, []);
 
-  const startAnimation = useCallback(() => {
-    if (!intervalId) {
-      setIntervalId(setInterval(nextTickAnimation, 16));
-    }
-  }, [nextTickAnimation, intervalId]);
+  const fire = useCallback(() => {
+    makeShot(0.25, {
+      spread: 26,
+      startVelocity: 55
+    });
 
-  const pauseAnimation = useCallback(() => {
-    clearInterval(intervalId);
-    setIntervalId(null);
-  }, [intervalId]);
+    makeShot(0.2, {
+      spread: 60
+    });
 
-  const stopAnimation = useCallback(() => {
-    clearInterval(intervalId);
-    setIntervalId(null);
-    refAnimationInstance.current && refAnimationInstance.current.reset();
-  }, [intervalId]);
+    makeShot(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8
+    });
 
-  useEffect(() => {
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [intervalId]);
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 45
+    });
+  }, [makeShot]);
 
   if(won){
-    startAnimation()
+      console.log('calling fire')
+    fire();
+    fire();
   }
 
+  if(won){
+    console.log('calling fire again')
+  fire();
+  fire();
+}
+  
   return (
     <>
-      <div>
-        <button onClick={startAnimation}>Start</button>
-        <button onClick={pauseAnimation}>Pause</button>
-        <button onClick={stopAnimation}>Stop</button>
-      </div>
+      <CelebrationIcon onClick={fire}></CelebrationIcon> 
       <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
     </>
   );
