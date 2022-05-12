@@ -23,7 +23,7 @@ app.get('/word', (req, res) => {
   axios.request(options).then((response) => {
       console.log(response.data)
       //display on browser
-      res.json("word list: "+response.data+".  "+ "random word: "+response.data[Math.floor(Math.random() * response.data.length)]+". ")
+      res.json(response.data)
   }).catch((error) => {
       console.error(error)
   })
