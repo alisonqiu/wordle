@@ -40,22 +40,22 @@ function App() {
   const [won, setWon] = React.useState(false);
 
   //genrate correct word with api
-  // useEffect(()=>{
-  //   generateWordSet().then((word)=>{
-  //     //word is an object that consisting of the set of all words and todaysWord
-  //     //setWordSet(word.wordSet)
-  //     setCorrectWord(word.todaysWord);
-  //   })
-  // },[])
-  //genrate correct word no api
-  useEffect(() => {
-    generateWordSetNoapi().then((word) => {
+  useEffect(()=>{
+    generateWordSet().then((word)=>{
       //word is an object that consisting of the set of all words and todaysWord
-      setWordSet(word.wordSet);
+      //setWordSet(word.wordSet)
       setCorrectWord(word.todaysWord);
-      console.log(word);
-    });
-  }, []);
+    })
+  },[])
+  //genrate correct word no api
+  // useEffect(() => {
+  //   generateWordSetNoapi().then((word) => {
+  //     //word is an object that consisting of the set of all words and todaysWord
+  //     setWordSet(word.wordSet);
+  //     setCorrectWord(word.todaysWord);
+  //     console.log(word);
+  //   });
+  // }, []);
 
   //functions for select and delete letters
   const onEnterLetter = () => {
@@ -85,30 +85,30 @@ function App() {
       } else {
         //with api
         //check if currWord is in wordbank
-        // fetch(`http://localhost:8000/check/?word=${currWord.toLowerCase()}`)
-        // .then(response => response.json())
-        // .then(json => {
-        //     if (json === 'Entry word not found') {
-        //         console.log((currWord+' is not a valid word'))
-        //         setInvalid(!invalid)
-        //         return
-        //     } else {
-        //       //if so, go to the next line
-        //     console.log(currWord+'is valid word')
-        //     setCurrAttempt({row: currAttempt.row+1, col:0})
-        //     }}).catch((error) => {
-        //       console.error(error)
-        //   })
+        fetch(`http://localhost:8000/check/?word=${currWord.toLowerCase()}`)
+        .then(response => response.json())
+        .then(json => {
+            if (json === 'Entry word not found') {
+                console.log((currWord+' is not a valid word'))
+                setInvalid(!invalid)
+                return
+            } else {
+              //if so, go to the next line
+            console.log(currWord+'is valid word')
+            setCurrAttempt({row: currAttempt.row+1, col:0})
+            }}).catch((error) => {
+              console.error(error)
+          })
 
         //no api
-        if (wordSet.has(currWord.toLowerCase())) {
-          //if so, go to the next line
-          setCurrAttempt({ row: currAttempt.row + 1, col: 0 });
-        } else {
-          //if currWord is not in wordbank
-          console.log(currWord + " is not a valid word");
-          setInvalid(!invalid);
-        }
+        // if (wordSet.has(currWord.toLowerCase())) {
+        //   //if so, go to the next line
+        //   setCurrAttempt({ row: currAttempt.row + 1, col: 0 });
+        // } else {
+        //   //if currWord is not in wordbank
+        //   console.log(currWord + " is not a valid word");
+        //   setInvalid(!invalid);
+        // }
       }
     }
   };
