@@ -51,11 +51,5 @@ app.get('/check', (req, res) => {
   })
 })
 
-app.get('/check', (req, res) => {
-  const word = req.query.word
-  let res = generateWordSetNoapi()
-
-})
-
 
 app.listen(PORT, () => console.log('Server running on port ' + PORT))
