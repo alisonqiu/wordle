@@ -1,16 +1,31 @@
 import React, { useState, createContext, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled } from '@mui/material/styles';
+import { Box, Typography } from "@mui/material";
 import Header from "./components/Header";
 import GameOver from "./components/Gameover";
 import Keyboard from "./components/Keyboard";
 import Alert from "./components/Alert";
+import Socket from "./components/Socket";
 import Board from "./components/Board";
 import { defaultBoard } from "./Words";
 //for use when I exceed the limit of API calls allowed lol
 import { generateWordSet, generateWordSetNoapi } from "./Words";
 import pinkBg from "./images/pinkbg.jpg";
 import wood from "./images/wood.jpg";
+import { grey } from '@mui/material/colors';
+import Button from '@mui/material/Button';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import ChatIcon from '@mui/icons-material/Chat';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 
 export const AppContext = createContext();
 
@@ -38,6 +53,15 @@ function App() {
   const [enter, setEnter] = React.useState(false);
   const [enterFive, setEnterFive] = React.useState(false);
   const [won, setWon] = React.useState(false);
+
+  //socket
+  const drawerBleeding = 56;
+
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   //genrate correct word with api
   useEffect(()=>{
@@ -151,7 +175,7 @@ function App() {
     palette: {
       mode: "light",
       background: {
-        default: "#303030",
+        default: "#303030",  
       },
     },
   });
@@ -194,6 +218,30 @@ function App() {
           }}
         >
           <Header />
+          <Button  sx={{ color: 'green', borderColor: 'green' }}variant="outlined" size="small" endIcon={<ChatIcon/>} onClick={toggleDrawer(true) }>Chat with a friend!</Button>
+          <SwipeableDrawer
+        anchor="right"
+        open={open}
+        onClose={toggleDrawer(false)}
+        onOpen={toggleDrawer(true)}
+        swipeAreaWidth={drawerBleeding}
+        disableSwipeToOpen={false}
+        ModalProps={{
+          keepMounted: true,
+        }}
+      >
+
+        <Box
+          sx={{
+            pt: 2,
+            height: '100%',
+            overflow: 'auto',
+          }}
+        >
+           <Socket/>
+        </Box>
+      </SwipeableDrawer>
+
           <Alert word={currWord} />
           {gameOver.gameOver ? <GameOver /> : <Board />}
           {gameOver.gameOver ? "" : <Keyboard />}
