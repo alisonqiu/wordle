@@ -1,4 +1,6 @@
 # Wordle (but better than the original!)
+The improved version of a game to guess a random word.
+
 ## Getting Started
 Use `npm start` for both wordle_server and wordle_client
 
