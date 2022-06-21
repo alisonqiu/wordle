@@ -6,7 +6,10 @@ Use `npm start` for both wordle_server and wordle_client
 
 ## Tools used
 **Frontend** : ReactJS, Material UI
-**Backend** : nodeJS, express, Rapid API
+
+**Backend** : nodeJS, express, Rapid API 
+
+**update 6/5: Socket.IO is used for the live chat function**
 
 ## How it works
 ![alt text](https://i.ibb.co/ZW0w4C6/Screen-Shot-2022-05-12-at-5-48-53-PM.png)
@@ -30,6 +33,18 @@ The backend queries 2 APIs provided by RapidAPI, one for getting a random word a
 
 ## Why it's better than the original
 This Wordle game is more than just a clone. It has some extra features that you can't find in the original game:
+
+- **update 6/5: added live chat function**
+
+  If you need help or just want to talk to another player as you are playing the game, you can click the "Chat with a friend!" button to chat with another friend who is playing my wordle game. This functionality is built with Socket.io. 
+  
+  <img width="800" alt="Screen Shot 2022-06-05 at 5 09 51 PM" src="https://user-images.githubusercontent.com/90943803/172073181-ccaf2170-4956-4373-90a3-a8315aae7fd3.png">
+
+As long as you and your friend enters the same room number, you will enter the same chat room and your messages will be updated in real time!
+
+<img width="800" alt="Screen Shot 2022-06-05 at 4 38 06 PM" src="https://user-images.githubusercontent.com/90943803/172073233-bee39cac-b4bc-488a-bf0e-5f891f0d3e1b.png">
+<img width="424" alt="Screen Shot 2022-06-05 at 5 28 44 PM" src="https://user-images.githubusercontent.com/90943803/172073234-d7444606-e0ee-4a7d-85e8-01b8cd49f5a5.png">
+
 - If you correctly guess the word, confettis will fall from the top of the screen to celebrate your success
  <img width="611" alt="Screen Shot 2022-05-12 at 5 56 19 PM" src="https://user-images.githubusercontent.com/90943803/168200880-37ec2d64-f598-484f-9a26-770a49833ae0.png">
 <img width="609" alt="Screen Shot 2022-05-12 at 5 55 53 PM" src="https://user-images.githubusercontent.com/90943803/168200898-30d6e381-b7d6-4eac-b493-f1bebcc4cff2.png">
