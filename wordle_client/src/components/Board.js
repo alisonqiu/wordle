@@ -31,7 +31,7 @@ export default function Board(props) {
   const sectionStyle = {
     backgroundImage: darkMode?"url('https://images.unsplash.com/photo-1633218388467-539651dcf81f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80') ":`url(${board})`,
     backgroundRepeat: "no-repeat",
-    backgroundSize: "100%",
+    //backgroundSize: "100%",
     backgroundPosition:'center',
   };
 
